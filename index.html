@@ -348,4 +348,536 @@
                             <input type="text" id="hope-1" class="input-field bg-transparent border-b border-white" placeholder="Contoh: Nilai Matematika naik...">
                         </div>
                         <div class="hope-box genie-effect" style="animation-delay: 0.3s;">
-                            <label class
+                            <label class="block text-pink-300 font-bold mb-1">🤝 Harapan Sosial</label>
+                            <input type="text" id="hope-2" class="input-field bg-transparent border-b border-white" placeholder="Contoh: Lebih aktif bergaul...">
+                        </div>
+                        <div class="hope-box genie-effect" style="animation-delay: 0.5s;">
+                            <label class="block text-blue-300 font-bold mb-1">🌟 Harapan Pribadi</label>
+                            <input type="text" id="hope-3" class="input-field bg-transparent border-b border-white" placeholder="Contoh: Lebih percaya diri...">
+                        </div>
+                        
+                        <div class="mt-8 text-center pt-4">
+                            <button onclick="showMoodSelector()" class="primary-btn bg-gradient-to-r from-emerald-500 to-teal-600 text-white hover:from-emerald-600 hover:to-teal-700 shadow-lg scale-100 hover:scale-105 transition-all">
+                                Saya Sudah Selesai! 🎉
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Mood Selector Modal (New) -->
+    <div id="mood-modal" class="summary-modal" style="display: none;">
+        <div class="summary-content text-center max-w-2xl bg-white text-gray-800">
+            <div class="text-4xl mb-4">🤔</div>
+            <h2 class="text-2xl font-bold mb-6">Bagaimana perasaanmu mengikuti kelas hari ini?</h2>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                <button onclick="selectMood('😁', 'Sangat Senang')" class="mood-btn flex flex-col items-center">
+                    <div>😁</div><span class="text-xs font-bold mt-2">Sangat Senang</span>
+                </button>
+                <button onclick="selectMood('😊', 'Senang')" class="mood-btn flex flex-col items-center">
+                    <div>😊</div><span class="text-xs font-bold mt-2">Senang</span>
+                </button>
+                <button onclick="selectMood('😌', 'Lega')" class="mood-btn flex flex-col items-center">
+                    <div>😌</div><span class="text-xs font-bold mt-2">Lega</span>
+                </button>
+                <button onclick="selectMood('😐', 'Biasa Saja')" class="mood-btn flex flex-col items-center">
+                    <div>😐</div><span class="text-xs font-bold mt-2">Biasa Saja</span>
+                </button>
+                <button onclick="selectMood('😔', 'Sedih')" class="mood-btn flex flex-col items-center">
+                    <div>😔</div><span class="text-xs font-bold mt-2">Sedih</span>
+                </button>
+                <button onclick="selectMood('🥱', 'Lelah')" class="mood-btn flex flex-col items-center">
+                    <div>🥱</div><span class="text-xs font-bold mt-2">Lelah</span>
+                </button>
+                <button onclick="selectMood('🤯', 'Bingung')" class="mood-btn flex flex-col items-center">
+                    <div>🤯</div><span class="text-xs font-bold mt-2">Bingung</span>
+                </button>
+                <button onclick="selectMood('🤩', 'Bersemangat')" class="mood-btn flex flex-col items-center">
+                    <div>🤩</div><span class="text-xs font-bold mt-2">Bersemangat</span>
+                </button>
+            </div>
+            <p class="text-sm text-gray-500">Pilih satu yang paling menggambarkan perasaanmu.</p>
+        </div>
+    </div>
+
+    <!-- Finish / Menu Modal -->
+    <div id="finish-modal" class="summary-modal" style="display: none;">
+        <div class="summary-content text-center max-w-lg">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-2">Terima Kasih!</h2>
+            <p class="text-gray-600 mb-8">Jawaban dan perasaanmu sudah tersimpan.</p>
+            
+            <div class="grid gap-3">
+                <button onclick="openPasswordModal('view')" class="primary-btn bg-indigo-600 text-white flex items-center justify-center gap-2">
+                    <span>📈</span> Lihat Rangkuman (Guru)
+                </button>
+                <button onclick="openPasswordModal('download')" class="primary-btn bg-green-600 text-white flex items-center justify-center gap-2">
+                    <span>📊</span> Download Excel (Guru)
+                </button>
+                <button onclick="resetForm(true)" class="primary-btn bg-gray-500 text-white flex items-center justify-center gap-2">
+                    <span>🏠</span> Kembali ke Menu Utama
+                </button>
+            </div>
+            
+            <button class="close-summary-btn bg-gray-300 text-gray-700 mt-4" onclick="document.getElementById('finish-modal').style.display='none'">Tutup Menu</button>
+        </div>
+    </div>
+
+    <!-- Password Prompt Modal -->
+    <div id="password-modal" class="summary-modal" style="display: none;">
+        <div class="glass p-8 max-w-sm w-full text-center">
+            <h3 class="text-2xl font-bold mb-4">🔐 Akses Guru</h3>
+            <p class="mb-4 text-sm opacity-80">Masukkan password untuk melanjutkan.</p>
+            <input type="password" id="password-input" class="input-field text-center mb-4" placeholder="Password..." style="background: rgba(0,0,0,0.5);">
+            <div class="flex gap-2">
+                <button onclick="closePasswordModal()" class="primary-btn bg-gray-500 text-white">Batal</button>
+                <button onclick="checkPassword()" class="primary-btn bg-blue-600 text-white">Masuk</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Display Modal -->
+    <div id="view-summary-modal" class="summary-modal" style="display: none;">
+        <div class="summary-content">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">📋 Rangkuman Data Kelas</h2>
+            <div class="overflow-x-auto">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Kelas</th>
+                            <th>Kesiapan</th>
+                            <th>Tantangan</th>
+                            <th>Harapan</th>
+                            <th>Perasaan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="summary-table-body">
+                        <!-- Data injected here -->
+                    </tbody>
+                </table>
+            </div>
+            <p id="empty-msg" class="text-center text-gray-500 mt-4 hidden">Belum ada data yang masuk.</p>
+            <button class="close-summary-btn" onclick="document.getElementById('view-summary-modal').style.display='none'">Tutup</button>
+        </div>
+    </div>
+
+  </div> <!-- End App Wrapper -->
+
+  <script>
+    // --- STATE MANAGEMENT ---
+    let appState = {
+        class: '',
+        name: '',
+        trafficLight: '', 
+        mountainLevel: '', 
+        mountainText: '',
+        hopes: { academic: '', social: '', personal: '' },
+        feeling: { emoji: '', label: '' } // New state for mood
+    };
+
+    let pendingAction = null; 
+    const DB_KEY = 'asesmen_bk_data_v2'; 
+    
+    function getStoredData() {
+        const data = localStorage.getItem(DB_KEY);
+        return data ? JSON.parse(data) : [];
+    }
+
+    function saveToStorage(newEntry) {
+        const currentData = getStoredData();
+        currentData.push(newEntry);
+        localStorage.setItem(DB_KEY, JSON.stringify(currentData));
+    }
+
+    // --- MUSIC & START ---
+    const music = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-toggle');
+    let isMusicPlaying = false;
+
+    function startApp() {
+        showClassSelection();
+        toggleMusic(true); 
+    }
+
+    function toggleMusic(forcePlay = false) {
+        if (isMusicPlaying && !forcePlay) {
+            music.pause();
+            musicBtn.classList.remove('playing');
+            isMusicPlaying = false;
+        } else {
+            music.play().then(() => {
+                musicBtn.classList.add('playing');
+                isMusicPlaying = true;
+            }).catch(e => console.log("Autoplay blocked"));
+        }
+    }
+
+    function stopMusic() {
+        music.pause();
+        musicBtn.classList.remove('playing');
+        isMusicPlaying = false;
+    }
+
+    // --- NAVIGATION FUNCTIONS ---
+    function showClassSelection() {
+        document.getElementById('welcome-screen').classList.add('hidden');
+        document.getElementById('class-selection-screen').classList.remove('hidden');
+    }
+
+    function backToWelcome() {
+        document.getElementById('class-selection-screen').classList.add('hidden');
+        document.getElementById('welcome-screen').classList.remove('hidden');
+    }
+
+    function selectClass(className) {
+        appState.class = className;
+        document.getElementById('class-selection-screen').classList.add('hidden');
+        document.getElementById('main-screen').classList.remove('hidden');
+        resetInputFields();
+    }
+
+    function resetInputFields() {
+        document.getElementById('step-name').classList.remove('hidden');
+        document.getElementById('step-interaction').classList.add('hidden');
+        document.getElementById('nav-container').classList.add('hidden'); 
+        
+        document.getElementById('student-name').value = '';
+        document.getElementById('current-user-display').textContent = 'Siswa: ...';
+        
+        // Reset Logic Teapot
+        document.getElementById('teapot-container').style.display = 'block';
+        document.getElementById('hope-forms').classList.add('hidden');
+        document.getElementById('hope-forms').classList.remove('opacity-100');
+        document.getElementById('hope-forms').classList.add('opacity-0');
+        
+        appState = {
+            class: appState.class, // Keep class
+            name: '',
+            trafficLight: '', 
+            mountainLevel: '', 
+            mountainText: '',
+            hopes: { academic: '', social: '', personal: '' },
+            feeling: { emoji: '', label: '' }
+        };
+
+        document.querySelectorAll('.traffic-light').forEach(el => el.classList.remove('selected'));
+        document.querySelectorAll('.climber-position').forEach(el => el.classList.remove('selected'));
+        document.getElementById('mountain-input').value = '';
+        document.getElementById('hope-1').value = '';
+        document.getElementById('hope-2').value = '';
+        document.getElementById('hope-3').value = '';
+        document.getElementById('traffic-desc').textContent = '';
+        document.getElementById('btn-next-1').classList.add('hidden');
+        
+        switchSession(1);
+    }
+
+    function startInput() {
+        const nameInput = document.getElementById('student-name').value.trim();
+        if (!nameInput) {
+            alert("Harap isi namamu dulu ya! 😊");
+            return;
+        }
+        appState.name = nameInput;
+        document.getElementById('current-user-display').textContent = `Siswa: ${appState.name} (${appState.class})`;
+        document.getElementById('step-name').classList.add('hidden');
+        document.getElementById('step-interaction').classList.remove('hidden');
+        document.getElementById('nav-container').classList.remove('hidden');
+        document.getElementById('step-interaction').style.display = 'flex';
+        switchSession(1);
+    }
+
+    // --- NEW VALIDATION HELPERS ---
+    
+    function validateStep(step) {
+        if (step === 1) {
+            if (!appState.trafficLight) {
+                alert("Silakan pilih warna lampu lalu lintas dulu ya! 🚦");
+                return false;
+            }
+        }
+        if (step === 2) {
+            const text = document.getElementById('mountain-input').value.trim();
+            if (!appState.mountainLevel) {
+                alert("Silakan pilih posisi pendaki dulu ya! 🧗");
+                return false;
+            }
+            if (!text) {
+                alert("Ceritakan sedikit tantanganmu ya! ✍️");
+                return false;
+            }
+        }
+        // Step 3 validasi ada di tombol selesai
+        return true;
+    }
+
+    function switchSession(sessionId) {
+        // Validasi sebelum pindah tab
+        // Jika mau ke sesi 2, cek sesi 1
+        if (sessionId === 2 && !validateStep(1)) return;
+        
+        // Jika mau ke sesi 3, cek sesi 1 dan 2
+        if (sessionId === 3) {
+            if (!validateStep(1)) return;
+            if (!validateStep(2)) return;
+        }
+
+        // Logic normal
+        document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+        document.getElementById(`nav-${sessionId}`).classList.add('active');
+        document.querySelectorAll('.session-content').forEach(content => content.classList.add('hidden'));
+        document.getElementById(`session-${sessionId}-content`).classList.remove('hidden');
+        const titles = ["Kesiapan Belajar", "Tantangan Belajar", "Harapan & Impian"];
+        document.getElementById('session-title').innerText = titles[sessionId-1];
+    }
+    
+    function nextSession(targetId) {
+        // nextSession juga menggunakan switchSession, jadi validasi otomatis berjalan
+        switchSession(targetId);
+    }
+
+    // --- INTERACTION LOGIC ---
+
+    function selectTrafficLight(color, element) {
+        appState.trafficLight = color;
+        document.querySelectorAll('.traffic-light').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        const descriptions = { 'Merah': 'Belum siap, butuh bantuan.', 'Kuning': 'Ragu-ragu, butuh motivasi.', 'Hijau': 'Siap semangat belajar!' };
+        document.getElementById('traffic-desc').textContent = descriptions[color];
+        document.getElementById('btn-next-1').classList.remove('hidden');
+    }
+
+    function selectClimberPosition(level, element) {
+        appState.mountainLevel = level;
+        document.querySelectorAll('.climber-position').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+    }
+    
+    function rubTeapot() {
+        const teapot = document.getElementById('teapot-emoji');
+        const container = document.getElementById('teapot-container');
+        const rubText = document.getElementById('rub-text');
+        
+        // Shake animation
+        teapot.classList.add('shake-animation');
+        rubText.textContent = "Sedang memanggil harapan... ✨";
+        
+        setTimeout(() => {
+            teapot.classList.remove('shake-animation');
+            container.style.transform = "scale(0.8) translateY(-20px) opacity(0)";
+            setTimeout(() => {
+                container.style.display = "none";
+                const forms = document.getElementById('hope-forms');
+                forms.classList.remove('hidden');
+                // Force reflow
+                void forms.offsetWidth;
+                forms.classList.remove('opacity-0');
+                forms.classList.add('opacity-100');
+            }, 300);
+        }, 1000);
+    }
+
+    // NEW: Flow Control
+    function showMoodSelector() {
+        // Ambil data terbaru dari input
+        appState.mountainText = document.getElementById('mountain-input').value;
+        appState.hopes.academic = document.getElementById('hope-1').value;
+        appState.hopes.social = document.getElementById('hope-2').value;
+        appState.hopes.personal = document.getElementById('hope-3').value;
+
+        if (!appState.name) { alert("Nama belum diisi!"); return; }
+
+        // Validasi Sesi 3 sebelum selesai
+        if (!appState.hopes.academic || !appState.hopes.social || !appState.hopes.personal) {
+            alert("Lengkapi ketiga harapanmu dulu ya! ✨");
+            return;
+        }
+        
+        // Show Mood Modal
+        document.getElementById('mood-modal').style.display = 'flex';
+    }
+
+    function selectMood(emoji, label) {
+        appState.feeling = { emoji, label };
+        finishAssessment();
+    }
+
+    function finishAssessment() {
+        document.getElementById('mood-modal').style.display = 'none';
+        
+        const record = {
+            timestamp: new Date().toISOString(),
+            ...appState
+        };
+
+        saveToStorage(record);
+        document.getElementById('finish-modal').style.display = 'flex';
+    }
+
+    function resetForm(fullReset = false) {
+        document.getElementById('finish-modal').style.display = 'none';
+        resetInputFields();
+        if (fullReset) {
+            document.getElementById('main-screen').classList.add('hidden');
+            document.getElementById('welcome-screen').classList.remove('hidden');
+        }
+    }
+
+    // --- PASSWORD & GURU LOGIC ---
+
+    function openPasswordModal(action) {
+        pendingAction = action;
+        document.getElementById('password-input').value = '';
+        document.getElementById('password-modal').style.display = 'flex';
+        document.getElementById('password-input').focus();
+    }
+
+    function closePasswordModal() {
+        document.getElementById('password-modal').style.display = 'none';
+        pendingAction = null;
+    }
+
+    function checkPassword() {
+        const input = document.getElementById('password-input').value;
+        
+        if (pendingAction === 'view') {
+            if (input === 'lihatrangkuman') {
+                closePasswordModal();
+                showSummaryTable();
+            } else { alert("Password Salah! (Hint: lihatrangkuman)"); }
+        } else if (pendingAction === 'download') {
+            if (input === 'downloadrangkuman') {
+                closePasswordModal();
+                downloadCSV();
+            } else { alert("Password Salah! (Hint: downloadrangkuman)"); }
+        }
+    }
+
+    function showSummaryTable() {
+        const data = getStoredData();
+        const tbody = document.getElementById('summary-table-body');
+        const emptyMsg = document.getElementById('empty-msg');
+        
+        tbody.innerHTML = '';
+        if (data.length === 0) { emptyMsg.classList.remove('hidden'); } 
+        else {
+            emptyMsg.classList.add('hidden');
+            data.forEach((item, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td><strong>${item.name}</strong></td>
+                    <td>${item.class}</td>
+                    <td>${item.trafficLight || '-'}</td>
+                    <td>${item.mountainText || '-'} (Lvl ${item.mountainLevel})</td>
+                    <td><small>A:${item.hopes.academic}<br>S:${item.hopes.social}<br>P:${item.hopes.personal}</small></td>
+                    <td>${item.feeling?.emoji || '-'} ${item.feeling?.label || ''}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        document.getElementById('finish-modal').style.display = 'none';
+        document.getElementById('view-summary-modal').style.display = 'flex';
+    }
+
+    function downloadCSV() {
+        const data = getStoredData();
+        if (data.length === 0) { alert("Belum ada data."); return; }
+
+        let csvContent = "data:text/csv;charset=utf-8,";
+        csvContent += "No,Waktu,Nama,Kelas,Kesiapan,Level Tantangan,Deskripsi Tantangan,Harapan Akademik,Harapan Sosial,Harapan Pribadi,Perasaan\n";
+
+        data.forEach((row, index) => {
+            const clean = (text) => text ? `"${text.replace(/"/g, '""')}"` : "";
+            const date = new Date(row.timestamp).toLocaleString('id-ID');
+            let rowString = [
+                index + 1, date, clean(row.name), clean(row.class),
+                clean(row.trafficLight), row.mountainLevel, clean(row.mountainText),
+                clean(row.hopes.academic), clean(row.hopes.social), clean(row.hopes.personal),
+                clean(`${row.feeling?.emoji || ''} ${row.feeling?.label || ''}`)
+            ].join(",");
+            csvContent += rowString + "\n";
+        });
+
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", `Rekap_Asesmen_BK_${new Date().toLocaleDateString('id-ID')}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // --- BACKGROUND ---
+    function initBackground() {
+        const canvas = document.getElementById('bg-canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 20;
+
+        const particlesCount = 150;
+        const geometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particlesCount * 3);
+        const velocities = [];
+
+        for(let i = 0; i < particlesCount; i++) {
+            positions[i * 3] = (Math.random() - 0.5) * 50;
+            positions[i * 3 + 1] = (Math.random() - 0.5) * 50;
+            positions[i * 3 + 2] = (Math.random() - 0.5) * 50;
+            velocities.push({ x: (Math.random() - 0.5) * 0.05, y: (Math.random() - 0.5) * 0.05, z: (Math.random() - 0.5) * 0.05 });
+        }
+        geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        const material = new THREE.PointsMaterial({ size: 0.2, color: 0x818cf8, transparent: true, opacity: 0.8 });
+        const particlesMesh = new THREE.Points(geometry, material);
+        scene.add(particlesMesh);
+
+        const lineMaterial = new THREE.LineBasicMaterial({ color: 0x818cf8, transparent: true, opacity: 0.15 });
+        const lineGeometry = new THREE.BufferGeometry();
+        const linesMesh = new THREE.LineSegments(lineGeometry, lineMaterial);
+        scene.add(linesMesh);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const positionsAttribute = particlesMesh.geometry.attributes.position;
+            const positions = positionsAttribute.array;
+
+            for(let i = 0; i < particlesCount; i++) {
+                positions[i * 3] += velocities[i].x;
+                positions[i * 3 + 1] += velocities[i].y;
+                positions[i * 3 + 2] += velocities[i].z;
+                if(Math.abs(positions[i * 3]) > 25) velocities[i].x *= -1;
+                if(Math.abs(positions[i * 3 + 1]) > 25) velocities[i].y *= -1;
+                if(Math.abs(positions[i * 3 + 2]) > 25) velocities[i].z *= -1;
+            }
+            positionsAttribute.needsUpdate = true;
+
+            const linePositions = [];
+            for(let i = 0; i < particlesCount; i++) {
+                for(let j = i + 1; j < particlesCount; j++) {
+                    const dx = positions[i*3] - positions[j*3];
+                    const dy = positions[i*3+1] - positions[j*3+1];
+                    const dz = positions[i*3+2] - positions[j*3+2];
+                    if (Math.sqrt(dx*dx + dy*dy + dz*dz) < 8) {
+                        linePositions.push(positions[i*3], positions[i*3+1], positions[i*3+2], positions[j*3], positions[j*3+1], positions[j*3+2]);
+                    }
+                }
+            }
+            linesMesh.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+            particlesMesh.rotation.y += 0.001; linesMesh.rotation.y += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate();
+        window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); });
+    }
+    window.onload = function() { initBackground(); };
+  </script>
+ </body>
+</html>
